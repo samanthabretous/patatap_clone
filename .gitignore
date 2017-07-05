@@ -34,6 +34,8 @@ node_modules/
 bower_components/
 .sass-cache
 *.css.map
-build/
 dist/
 maps/
+hot-update.js
+hot-update.js.map
+hot-update.json

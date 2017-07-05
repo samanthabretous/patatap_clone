@@ -1,13 +1,19 @@
 <html>
 <head>
   <title>Padatap Clone</title>
+  <!-- scripts -->
   <script src="./js/lib/two.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/circles.css">
-  <script type="text/javascript" src="js/playSounds.js"></script>
-  <script type="text/javascript" src="js/keyData.js"></script>
-  <script type="text/javascript" src="js/app.js" defer></script>
+
+  <!-- styles -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-  <div id="draw-shapes-js"></div>
+  <div id="draw-shapes-js" class="draw-shapes"></div>
+  <script type="text/javascript" defer>
+    const elem = document.getElementById('draw-shapes-js');
+    const params = { fullscreen: true };
+    const two = new Two(params).appendTo(elem);
+  </script>
+  <script src="./build/bundle.js" defer></script>
 </body>
 </html>
