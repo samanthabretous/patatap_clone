@@ -1,28 +1,30 @@
-var circles = [];
-
-function onKeyDown(event) {
+const elem = document.getElementById('draw-shapes-js');
+var params = { width: window.innerWidth, height: window.innerHeight };
+var two = new Two(params).appendTo(elem);
+console.log(two)
+const circles = [];
+const createNewCircleOnKeyDown = (event) => {
   if(keyData[event.key]){
-    var maxPoint = new Point(view.size.width, view.size.height);
-    var randomPoint = Point.random();
-    var point = maxPoint * randomPoint;
-    var newCircle = new Path.Circle(point, 500)
-    newCircle.fillColor = keyData[event.key].color;
-    keyData[event.key].sound();
+    // get document size boundries
+    const randomWidth = Math.floor(Math.random() * window.innerWidth);
+    const randomHeight = Math.floor(Math.random() * window.innerHeight);
+    const newCircle = two.makeCircle(randomWidth, randomHeight, 200);
+    newCircle.fill = keyData[event.key].color;
+    newCircle.noStroke();
     circles.push(newCircle);
   }
 }
 
-function onFrame(event){
-  for(var i = 0; i < circles.length; i++){
-    circles[i].scale(0.9);
-    circles[i].fillColor.hue += 1;
+document.addEventListener('keypress', createNewCircleOnKeyDown);
 
-    // delete circles when they finish animation
-    if(circles[i].area < 1){
-      circles[i].remove();
-      circles.splice(i, 1);
+two.bind('update', function(frameCount) {
+  for(let i = 0; i < circles.length; i++) {
+    var t = circles[i].scale - 0.03;
+    circles[i].scale = t;
+    // remove circle when animation is complete
+    if(circles[i].scale < 0) {
+      two.remove(circles[i])
+      circles.splice(circles[i], 1)
     }
   }
-}
-
-
+}).play();
